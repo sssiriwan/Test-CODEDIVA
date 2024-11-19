@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 
 @Entity()
+@Unique(['email']) // ห้าม email ซ้ำ
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,5 +13,21 @@ export class User {
   password: string;
 
   @Column()
-  name: string;
+  firstname: string;
+
+  @Column()
+  lastname: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: true })
+  phoneNumber: string;
+
+  @Column({ type: 'date', nullable: true }) 
+  dateOfBirth: Date;
+
+  @Column({
+    type: 'enum',
+    enum: ['MALE', 'FEMALE', 'OTHER'],
+    default: 'OTHER',
+  })
+  gender: string;
 }

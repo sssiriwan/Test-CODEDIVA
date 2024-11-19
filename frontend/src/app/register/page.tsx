@@ -1,11 +1,14 @@
 "use client";
 
 import React, {useState} from "react";
+import axios, { AxiosError } from 'axios';
+import { useRouter } from "next/navigation";
+
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
     dateOfBirth: "",
@@ -14,6 +17,7 @@ export default function RegisterPage() {
     termsAccepted: false,
     marketingAccepted: false,
   });
+  const router = useRouter();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -33,9 +37,23 @@ export default function RegisterPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+  
+    try {
+      const response = await axios.post('http://localhost:4000/auth/register', formData);
+      console.log('Registration successful:', response.data);
+      alert('Registration successful!');
+      router.push("/");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Registration failed:', error.response?.data || error.message);
+        alert('Registration failed: ' + (error.response?.data?.message || error.message));
+      } else {
+        console.error('Unexpected error:', error);
+        alert('An unexpected error occurred.');
+      }
+    }
   };
 
   return (
@@ -53,19 +71,19 @@ export default function RegisterPage() {
             <div className="flex gap-4">
               <input
                 type="text"
-                name="firstName"
+                name="firstname"
                 placeholder="First name"
                 required
-                value={formData.firstName}
+                value={formData.firstname}
                 onChange={handleChange}
                 className="w-1/2 border px-4 py-2 rounded"
               />
               <input
                 type="text"
-                name="lastName"
+                name="lastname"
                 placeholder="Last name"
                 required
-                value={formData.lastName}
+                value={formData.lastname}
                 onChange={handleChange}
                 className="w-1/2 border px-4 py-2 rounded"
               />
@@ -116,8 +134,8 @@ export default function RegisterPage() {
                 <input
                   type="radio"
                   name="gender"
-                  value="male"
-                  checked={formData.gender === "male"}
+                  value="MALE"
+                  checked={formData.gender === "MALE"}
                   onChange={handleChange}
                 />
                 <span className="ml-2">Male</span>
@@ -126,8 +144,8 @@ export default function RegisterPage() {
                 <input
                   type="radio"
                   name="gender"
-                  value="female"
-                  checked={formData.gender === "female"}
+                  value="FEMALE"
+                  checked={formData.gender === "FEMALE"}
                   onChange={handleChange}
                 />
                 <span className="ml-2">Female</span>
@@ -136,8 +154,8 @@ export default function RegisterPage() {
                 <input
                   type="radio"
                   name="gender"
-                  value="not-specified"
-                  checked={formData.gender === "not-specified"}
+                  value="OTHER"
+                  checked={formData.gender === "OTHER"}
                   onChange={handleChange}
                 />
                 <span className="ml-2">Not Specified</span>

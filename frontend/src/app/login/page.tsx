@@ -1,21 +1,49 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    try {
+      const response = await axios.post("http://localhost:4000/auth/login", {
+        email,
+        password,
+      });
+
+      const userData = response.data.user;
+      login({ firstName: userData.firstname });
+
+      alert("Login successful!");
+      router.push("/"); 
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+        alert(
+          "Login failed: " +
+            (error.response?.data?.message || "Something went wrong!")
+        );
+      } else {
+        console.error("Unexpected error:", error);
+        alert("An unexpected error occurred.");
+      }
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-       <a href="/" className="mr-4 hover:underline">back</a>
+      <a href="/" className="mr-4 hover:underline">
+        back
+      </a>
       <div className="bg-white shadow-lg rounded-lg flex w-full max-w-4xl overflow-hidden">
         <div className="w-1/2 p-8">
           <h1 className="text-2xl font-semibold text-center mb-4">Welcome!</h1>
@@ -75,12 +103,10 @@ export default function LoginPage() {
         </div>
 
         <div className="w-1/2 relative">
-          <Image
-            src="/swensens/login.jpg" 
+          <img
+            src="/swensens/login.jpg"
             alt="Login Illustration"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-r-lg"
+            className="w-full h-full object-cover"
           />
         </div>
       </div>

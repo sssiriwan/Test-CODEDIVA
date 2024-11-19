@@ -1,5 +1,4 @@
 "use client"; 
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductList from '@/components/products/ProductList';
 import CategoryMenu from '@/components/products/CategoryMenu';
@@ -9,8 +8,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("Ice Cream - Cake");
 
   return (
-    <div>
-      <Navbar />
+    <div>     
       <main className="flex flex-col items-center justify-center min-h-screen p-8">
         <div>
           <h1>Delivery To:</h1> {/* componentเพื่อเลือกlocationจากgooglemap*/}

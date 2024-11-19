@@ -1,12 +1,12 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-
+import { Navbar } from "@/components/Navbar";
+import { AuthProvider } from "@/context/AuthContext";
 
 const robotoMedium = localFont({
-  src: "/fonts/Roboto-Medium.ttf", 
-  variable: "--font-roboto-medium", 
+  src: "/fonts/Roboto-Medium.ttf",
+  variable: "--font-roboto-medium",
   weight: "500",
 });
 
@@ -22,10 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${robotoMedium.variable} antialiased`} 
-      >
-        {children}
+      <body className={`${robotoMedium.variable} antialiased`}>
+        <AuthProvider>
+          <Navbar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

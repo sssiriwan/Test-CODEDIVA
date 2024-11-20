@@ -1,26 +1,41 @@
-export default function CategoryMenu({ selectedCategory, onSelectCategory }: { selectedCategory: string; onSelectCategory: (category: string) => void; }) {
-    const categories = [
-      "Ice Cream - Cake",
-      "Ice Cream Quart (450g)",
-      "Ice Cream Mini Quart (250g)",
-      "Sundae Set",
-      "Ice Cream Scoop",
-      "Small Bites Ice Cream",
-      "Topping",
-    ];
-  
-    return (
-      <div className="flex gap-4 overflow-x-auto">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={`px-4 py-2 rounded ${selectedCategory === category ? "bg-red-500 text-white" : "bg-gray-200"}`}
-            onClick={() => onSelectCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-    );
-  }
-  
+import React, { useState, useEffect } from "react";
+
+export default function CategoryMenu({
+  selectedCategoryId,
+  onSelectCategory,
+}: {
+  selectedCategoryId: number;
+  onSelectCategory: (categoryId: number) => void;
+}) {
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/category");
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  return (
+    <div className="flex gap-4 overflow-x-auto">
+      {categories.map((category) => (
+        <button
+          key={category.id}
+          className={`px-4 py-2 rounded ${
+            selectedCategoryId === category.id ? "bg-red-500 text-white" : "bg-gray-200"
+          }`}
+          onClick={() => onSelectCategory(category.id)} 
+        >
+          {category.name}
+        </button>
+      ))}
+    </div>
+  );
+}

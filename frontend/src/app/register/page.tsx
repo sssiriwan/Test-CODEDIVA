@@ -1,9 +1,8 @@
 "use client";
 
 import React, {useState} from "react";
-import axios, { AxiosError } from 'axios';
-import { useRouter } from "next/navigation";
-
+import axios, {AxiosError} from "axios";
+import {useRouter} from "next/navigation";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -39,19 +38,28 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     try {
-      const response = await axios.post('http://localhost:4000/auth/register', formData);
-      console.log('Registration successful:', response.data);
-      alert('Registration successful!');
+      const response = await axios.post(
+        "http://localhost:4000/auth/register",
+        formData
+      );
+      console.log("Registration successful:", response.data);
+      alert("Registration successful!");
       router.push("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Registration failed:', error.response?.data || error.message);
-        alert('Registration failed: ' + (error.response?.data?.message || error.message));
+        console.error(
+          "Registration failed:",
+          error.response?.data || error.message
+        );
+        alert(
+          "Registration failed: " +
+            (error.response?.data?.message || error.message)
+        );
       } else {
-        console.error('Unexpected error:', error);
-        alert('An unexpected error occurred.');
+        console.error("Unexpected error:", error);
+        alert("An unexpected error occurred.");
       }
     }
   };
@@ -59,9 +67,6 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-50 py-8">
       <div className="max-w-4xl w-full bg-white shadow-md rounded-lg flex overflow-hidden">
-        <a href="/" className="mr-4 hover:underline">
-          back
-        </a>
         <div className="w-1/2 p-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
             Sign Up for Exclusive Delivery Deals!
@@ -88,7 +93,6 @@ export default function RegisterPage() {
                 className="w-1/2 border px-4 py-2 rounded"
               />
             </div>
-
             {/* Email and Password */}
             <input
               type="email"
@@ -108,7 +112,6 @@ export default function RegisterPage() {
               onChange={handleChange}
               className="w-full border px-4 py-2 rounded"
             />
-
             {/* Date of Birth and Phone Number */}
             <input
               type="date"
@@ -127,7 +130,6 @@ export default function RegisterPage() {
               onChange={handleChange}
               className="w-full border px-4 py-2 rounded"
             />
-
             {/* Gender */}
             <div className="flex gap-4 items-center">
               <label className="flex items-center">
@@ -161,7 +163,6 @@ export default function RegisterPage() {
                 <span className="ml-2">Not Specified</span>
               </label>
             </div>
-
             {/* Terms and Marketing */}
             <div>
               <label className="flex items-center">
@@ -192,13 +193,18 @@ export default function RegisterPage() {
                 </span>
               </label>
             </div>
-
             <button
               type="submit"
               className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
             >
               Create Account
-            </button>
+            </button>{" "}
+            <a
+              href="/"
+              className="w-full text-center mt-4 inline-block bg-red-600 rounded text-white py-2 hover:bg-red-700 transition "
+            >
+              Back
+            </a>
           </form>
         </div>
         <div className="w-1/2 bg-pink-100">

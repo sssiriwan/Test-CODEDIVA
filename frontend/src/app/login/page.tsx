@@ -40,10 +40,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <a href="/" className="mr-4 hover:underline">
-        back
-      </a>
+    <div className="min-h-screen flex flex-col items-center bg-gray-100 py-8">
+     
       <div className="bg-white shadow-lg rounded-lg flex w-full max-w-4xl overflow-hidden">
         <div className="w-1/2 p-8">
           <h1 className="text-2xl font-semibold text-center mb-4">Welcome!</h1>
@@ -99,6 +97,12 @@ export default function LoginPage() {
             >
               Login
             </button>
+            <a
+              href="/"
+              className="w-full text-center mt-4 inline-block bg-red-500 rounded text-white py-2 hover:bg-red-600 transition "
+            >
+              Back
+            </a>
           </form>
         </div>
 

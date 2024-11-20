@@ -24,7 +24,7 @@ export default function LoginPage() {
       login({ firstName: userData.firstname });
 
       alert("Login successful!");
-      router.push("/"); 
+      router.push("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Axios error:", error.response?.data || error.message);
@@ -41,7 +41,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 py-8">
-     
       <div className="bg-white shadow-lg rounded-lg flex w-full max-w-4xl overflow-hidden">
         <div className="w-1/2 p-8">
           <h1 className="text-2xl font-semibold text-center mb-4">Welcome!</h1>
@@ -61,7 +60,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="siriwan9933@gmail.com"
+                placeholder="user@example.com"
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 required
               />
@@ -99,13 +98,12 @@ export default function LoginPage() {
             </button>
             <a
               href="/"
-              className="w-full text-center mt-4 inline-block bg-red-500 rounded text-white py-2 hover:bg-red-600 transition "
+              className="w-full text-center mt-4 inline-block bg-red-500 rounded text-white py-2 hover:bg-red-600 transition"
             >
               Back
             </a>
           </form>
         </div>
-
         <div className="w-1/2 relative">
           <img
             src="/swensens/login.jpg"

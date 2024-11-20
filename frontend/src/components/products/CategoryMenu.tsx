@@ -28,8 +28,8 @@ export default function CategoryMenu({
       {categories.map((category) => (
         <button
           key={category.id}
-          className={`px-4 py-2 rounded ${
-            selectedCategoryId === category.id ? "bg-red-500 text-white" : "bg-gray-200"
+          className={`px-4 py-2 rounded-xl ${
+            selectedCategoryId === category.id ? "bg-white text-red-500 px-6 py-3 rounded-full border border-red-500 hover:bg-red-100 focus:outline-none" : " text-gray-500 bg-slate-100"
           }`}
           onClick={() => onSelectCategory(category.id)} 
         >

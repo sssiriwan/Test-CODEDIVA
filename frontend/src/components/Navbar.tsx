@@ -13,8 +13,10 @@ export function Navbar() {
   return (
     <nav className="w-full text-red-500 bg-white p-4">
       <div className="w-full mx-auto flex justify-between items-center">
-        <img src="/swensens/logo.jpg" alt="Logo" className="" />
-        <div>
+        <a href="/">
+          <img src="/swensens/logo.jpg" alt="Logo" className="" />
+        </a>
+        <div className="">
           {user ? (
             <>
               {/* Button with username */}
